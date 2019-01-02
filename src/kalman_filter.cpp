@@ -69,10 +69,20 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 	VectorXd y = z - z_pred;
   //Limited the output range into [-pi,pi]
   y(1) = fmod(y(1),2*pi); 
+<<<<<<< HEAD
   if (y(1) < -pi) {
       y(1) = y(1) + 2 * pi;
   } else if (y(1) > pi) {
       y(1) = y(1) - 2 * pi;
+=======
+ if (y(1) >= pi && y(1) <=2*pi)
+  {
+  y(1) = y(1) -2*pi;
+  }
+  if (y(1) <= -pi && y(1) >=-2*pi)
+ {
+  y(1) = y(1) +2*pi;
+>>>>>>> remotes/origin/master
   }
 	MatrixXd Ht = H_.transpose();
 	MatrixXd S = H_ * P_ * Ht + R_;
@@ -85,4 +95,8 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 	MatrixXd I = MatrixXd::Identity(x_size, x_size);
 	P_ = (I - K * H_) * P_;
   std::cout << "Radar Updated!" << std::endl;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> remotes/origin/master
